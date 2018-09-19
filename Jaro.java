@@ -6,7 +6,9 @@ import java.util.*;
 public class Jaro {
     private static final int LIST_CMP = 0;
     private static final int HASH_CMP = 1;
-    private static double total_diff = 0;
+    private static double totalDiff = 0.0;
+    private static double totalJaroTime = 0.0;
+    private static double totalJwTime = 0.0;
 
     private static JaroWinklerDistance jaroWinkler;
     private static HashMap<String, String> examplesMap = new HashMap<>();
@@ -78,7 +80,9 @@ public class Jaro {
 
         double aveScore = (d1 + d2) / 2.0;
         double diff = jaroWinklerTime - jaroTime;
-        total_diff += diff;
+        totalDiff += diff;
+        totalJaroTime += jaroTime;
+        totalJwTime += jaroWinklerTime;
 
         String res = String.format("%12s ?= %-12s | %4.2f (%6.5f ms) | %8.2f (%6.5f ms) | %6.5f ms", s1, s2, d1, jaroTime, d2, jaroWinklerTime, diff);
         cmpResults.put(aveScore, res);
@@ -165,9 +169,13 @@ public class Jaro {
         }
 
         // ave time diff
-        double ave_diff = total_diff/(double) cmpResults.size();
+        double aveDiff = totalDiff /(double) cmpResults.size();
+        double aveJaroTime = totalJaroTime /(double) cmpResults.size();
+        double aveJwTime = totalJwTime /(double) cmpResults.size();
+        double percDiff = (100 * aveJwTime/aveJaroTime) - 100;
+
         System.out.println("--------------------------------------------------------------------------------------------");
-        System.out.println(String.format("%72s | %6.5f ms", "Ave time diff", ave_diff));
+        System.out.println(String.format("%72s | %6.5f ms (%4.2f %%)", "Ave time diff", aveDiff, percDiff));
 
         System.out.println("\n(Notice that the top results for close matching JW vary more than that of normal Jaro.\nThis allows more confidence in match selection.)");
     }
