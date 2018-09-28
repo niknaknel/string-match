@@ -6,4 +6,4 @@ Sandbox repo for testing Jaro-Winkler.
 
 * I've observed that JW usually has more variation in its top 3 scores, meaning that the confidence with which we may choose the top results is greater than that of normal Jaro. JW is especially accurate for **alias detection** since it accounts for **mispellings** and **spelling variations**.
 
-* Busy collecting timing statistics
+* Busy collecting timing statistics. So far I couldn't identify any meaningful trends. However, the JW algorithm may take anywhere from 1-6.5 times as long as normal Jaro.
