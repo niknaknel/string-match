@@ -2,7 +2,7 @@
 
 public class Jaro {
 
-    public static double getDistance(String str, String test) {
+    public static double getScore(String str, String test) {
         int s_len = str.length();
         int t_len = test.length();
         if (s_len == 0 && t_len == 0) return 1;

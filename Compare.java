@@ -14,13 +14,12 @@ public class Compare {
 
     public static TreeMap<Double, String> search_all(String target, int alg) {
         TreeMap<Double, String> results = new TreeMap<>(Collections.reverseOrder());
-        JaroWinklerDistance jaroWinkler = new JaroWinklerDistance();
         double timeElapsed = 0;
 
         if (alg == JARO) {
             long startTime = System.nanoTime();
             for (String s : examplesList) {
-                double distance = Jaro.getDistance(target.toLowerCase(), s.toLowerCase());
+                double distance = Jaro.getScore(target.toLowerCase(), s.toLowerCase());
                 results.put(distance, s);
             }
             long endTime = System.nanoTime();
@@ -29,7 +28,7 @@ public class Compare {
         } else if (alg == JARO_WINK) {
             long startTime = System.nanoTime();
             for (String s : examplesList) {
-                double distance = jaroWinkler.apply(target.toLowerCase(), s.toLowerCase());
+                double distance = JaroWinklerDistance.apply(target.toLowerCase(), s.toLowerCase());
                 results.put(distance, s);
             }
             long endTime = System.nanoTime();
@@ -38,7 +37,7 @@ public class Compare {
         } else if (alg == JARO_WINK_CHAR) {
             long startTime = System.nanoTime();
             for (String s : examplesList) {
-                double distance = jaroWinkler.applyCharArray(target.toLowerCase(), s.toLowerCase());
+                double distance = JaroWinkler.getScore(target.toLowerCase(), s.toLowerCase());
                 results.put(distance, s);
             }
             long endTime = System.nanoTime();
