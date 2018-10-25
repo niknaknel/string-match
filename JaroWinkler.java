@@ -16,6 +16,7 @@
  */
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * A similarity algorithm indicating the percentage of matched characters between two character sequences.
@@ -134,5 +135,16 @@ public class JaroWinkler {
             }
         }
         return new int[] {matches, transpositions / 2, prefix, max.length};
+    }
+
+    public static void main(String[] args) {
+        // get input
+        System.out.println("Please enter two strings to test: ");
+        Scanner scanner = new Scanner(System.in);
+        String str1 = scanner.next();
+        String str2 = scanner.next();
+
+        double score = getScore(str1, str2);
+        System.out.println(score);
     }
 }
